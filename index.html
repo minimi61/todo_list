@@ -14,7 +14,7 @@
         <h1>TO DO LIST</h1>
         <div>
             <input type="text" id="text_input">
-            <button class="add_button">+</button>
+            <button class="add_button" id="add_button">+</button>
         </div>
         <section class="task" id="task">
             <div class="all" id="task_all">
@@ -27,13 +27,14 @@
                 완료
             </div>
         </section>
-        <div class="task_update">
-            <div id="update">밥먹기</div>
-
-            <div class="buttons">
-                <button id="check"><i class="fa-solid fa-check"></i></button>
-                <button id="delete"><i class="fa-solid fa-trash-can"></i></button>
-            </div> 
+        <div id="task-board">
+            <div class="task_update" id="task_update">
+                <div id="update">밥먹기</div>
+                <div class="buttons">
+                    <button id="check"><i class="fa-solid fa-check"></i></button>
+                    <button id="delete"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </div>
         </div>
     </div>
 </body>

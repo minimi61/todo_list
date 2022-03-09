@@ -9,4 +9,32 @@
 //진행중 끝남 탭을 누르면, 언더바가 이동한다
 //끝남탭은, 끝난 아이템만, 진행중 탭은 진행중 아이템만
 //전체 탭을 누르면 다시 전체 아이템으로 돌아옴
+let textInput = document.getElementById("text_input");
+let addButton = document.getElementById("add_button");
+let sendList = [];
+let taskUpdate = document.getElementById("task_update");
+addButton.addEventListener("click", send);
 
+function send() {
+    let useInput = textInput.value;
+    sendList.push(useInput);
+    console.log(sendList);
+
+    render();
+}
+
+function render() {
+    let result = "";
+
+    sendList.forEach((i) => {
+        result +=`<div class="task_update" id="task_update">
+        <div id="update">${textInput.value}</div>
+        <div class="buttons">
+            <button id="check"><i class="fa-solid fa-check"></i></button>
+            <button id="delete"><i class="fa-solid fa-trash-can"></i></button>
+        </div> 
+        </div>`;
+    })
+    console.log(result)
+    document.getElementById("task-board").innerHTML = result;
+}
