@@ -16,9 +16,20 @@ body{
     margin-top: 10px;
     padding: 1em;
     border: 1px solid gray;
+    position: relative;
 }
 section div{
     padding: 0.5em;
+    cursor: pointer;
+}
+.under-line{
+    background-color: lightpink;
+    height: 4px !important;
+    position: absolute;
+    top: 65px;
+    left: 10px;
+    width: 55px;  
+    padding: 0;
 }
 .task_update{
     display: flex;
@@ -27,15 +38,26 @@ section div{
     border-bottom: 1px solid lightgray;
     padding: 1em;
 }
+
 .buttons button{
     width: 100px;
     padding: 1em;
     border: none;
     height: 100%;
+    width: 5em;
+    margin: 0;
+    background-color: white;
+    transition: 0.5s;
 }
 .fa-check{
     color:green;
 }
 .fa-trash-can{
     color: red;
+}
+
+.task-done {
+    text-decoration: line-through;
+    background-color: lightgray;
+    width: 100%;
 }

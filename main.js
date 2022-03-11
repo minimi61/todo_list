@@ -13,28 +13,124 @@ let textInput = document.getElementById("text_input");
 let addButton = document.getElementById("add_button");
 let sendList = [];
 let taskUpdate = document.getElementById("task_update");
+let underLine = document.querySelectorAll(".under-line");
+let tabs = document.querySelectorAll(".task div");
+let filteredList = [];
+// console.log(tabs);
+
+// let deleteBox = document.getElementById("d_delete"); 
 addButton.addEventListener("click", send);
+// deleteBox.addEventListener("click", deleteCheck);
+//위에 addEventListener이 왜 null로 나타날까?
+
+for (let i = 1; i < tabs.length; i++){
+    // console.log(tabs[i].textContent)
+    tabs[i].addEventListener("click", filter);
+}
 
 function send() {
     let useInput = textInput.value;
-    sendList.push(useInput);
+    let task = {
+        taskcontent: useInput,
+        isComplete: false,
+        id: random(),
+    };
+    sendList.push(task);
     console.log(sendList);
-
+    // textInput.value = '';
     render();
 }
 
 function render() {
     let result = "";
 
-    sendList.forEach((i) => {
-        result +=`<div class="task_update" id="task_update">
-        <div id="update">${textInput.value}</div>
+    for (let i = 0; i < sendList.length; i++) {
+        if (sendList[i].isComplete == true) {
+            result += 
+            `<div class="task-done task_update" id="task_update">
+        <span id="update">${sendList[i].taskcontent}</span>
         <div class="buttons">
-            <button id="check"><i class="fa-solid fa-check"></i></button>
-            <button id="delete"><i class="fa-solid fa-trash-can"></i></button>
+        <button onclick="taskCheck('${sendList[i].id}')"><i class="fa-solid fa-check"></i></button>
+        <button onclick="taskDelete('${sendList[i].id}')"id="d_delete"><i class="fa-solid fa-trash-can"></i></button>
         </div> 
         </div>`;
-    })
-    console.log(result)
+        } else {
+            result += `<div class="task_update" id="task_update">
+        <span id="update">${sendList[i].taskcontent}</span>
+        <div class="buttons">
+            <button onclick="taskCheck('${sendList[i].id}')"><i class="fa-solid fa-check"></i></button>
+            <button onclick="taskDelete('${sendList[i].id}')"id="d_delete"><i class="fa-solid fa-trash-can"></i></button>
+        </div> 
+        </div>`;
+        }
+    }
+    // sendList.forEach((i) => {
+    //     // if (sendList[i].isComplete ==true ) 
+    //     // {
+    //         result += `<div class="task_update" id="task_update">
+    //     <div id="update">${sendList[i].taskcontent}</div>
+    //     <div class="buttons">
+    //         <button onclick="taskCheck('${sendList[i].id}')"><i class="fa-solid fa-check"></i></button>
+    //         <button onclick="taskDelete()"id="d_delete"><i class="fa-solid fa-trash-can"></i></button>
+    //     </div> 
+    //     </div>`;
+        // }
+        // else {result += `<div class="task_update" id="task_update">
+        // <div id="update">${sendList[i].content}</div>
+        // <div class="buttons">
+        //     <button onclick="taskCheck()"><i class="fa-solid fa-check"></i></button>
+        //     <button onclick="taskDelete()"id="d_delete"><i class="fa-solid fa-trash-can"></i></button>
+        // </div> 
+        // </div>`;
+        // }
+    // })
+    // console.log(result);
     document.getElementById("task-board").innerHTML = result;
+}
+
+function taskCheck(id) {
+    // console.log("체크했다?!",id)
+    for (let i = 0; i< sendList.length;i++) {
+        if (sendList[i].id == id) {
+            sendList[i].isComplete = !sendList[i].isComplete;
+            break;
+        }
+    }
+    // console.log(sendList)
+    render()
+}
+function taskDelete(id) {
+    console.log("삭제")
+    for (let i=0; i < sendList.length; i++){
+        if (sendList[i].id == id) {
+            sendList.splice(i,1)
+        }
+    }
+    render();
+}
+// function deleteCheck() {
+//     console.log("이것도?")
+// }
+
+function filter() {
+    if (tabs.textContent === "진행중") {
+        for (let i = 0; i < sendList.length; i++){
+            if (sendList[i].isComplete == false) {
+                filteredList.push(sendList[i])
+            }
+        }
+    }
+    else if (tabs.textContent === "완료") {
+        for (let i = 0; i < sendList.length; i++){
+            if (sendList[i].isComplete) {
+                filteredList.push(sendList[i])
+            }
+        }
+        console.log("과연!")
+    }
+    render();
+};
+
+function random() {
+    return '_' + Math.random().toString(36).substr(2, 9);
 }
